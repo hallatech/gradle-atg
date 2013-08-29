@@ -6,7 +6,7 @@ gradle-atg
 - To build: gradle
 - To test P1 tasks: gradle -b atg.gradle [startSQLRepository runAssembler]
 
-<h3>Configuration</h2>
+<h3>Configuration</h3>
 Build configuration is applied in the following sequence allowing various overrides:
 - build configuration in buildtools/task-config.gradle using ext vars only
 - project specific config override buildtools/project-config.gradle
