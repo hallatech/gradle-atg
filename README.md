@@ -3,8 +3,8 @@ gradle-atg
 
 ATG Gradle tasks conceptual definition
 
-To build: gradle
-To test P1 tasks: gradle -b atg.gradle [startSQLRepository runAssembler]
+- To build: gradle
+- To test P1 tasks: gradle -b atg.gradle [startSQLRepository runAssembler]
 
 Configuration
 Build configuration is applied in the following sequence allowing various overrides:
