@@ -24,7 +24,6 @@ if (file(userConfigFileName).exists()) apply from: userConfigFileName
  */
 task runAssembler(type: RunAssembler) {
   workingDir atgBinDir
-  outputFile runAssemblerOutputFileName
   outputFilePath runAssemblerOutputFilePath
   options runAssemblerOptions
   modules runAssemblerModules

@@ -21,7 +21,6 @@ import org.apache.commons.lang3.SystemUtils
  */
 class RunAssembler extends Exec {
   public static final String RUN_ASSEMBLER_NAME='runAssembler'
-  @Input String outputFile
   @Input String outputFilePath
   @Input List<String> options = new ArrayList()
   @Input List<String> modules = new ArrayList()
