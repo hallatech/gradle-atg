@@ -1,0 +1,88 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath fileTree(dir: "${buildDir}/libs", include: '*.jar')
+    classpath 'org.apache.commons:commons-lang3:3.1'
+  }
+}
+
+import org.apache.commons.lang3.SystemUtils
+
+//Get default configuration
+apply from: 'buildtools/gradle/task-config.gradle'
+//Override defaults at project level
+apply from: projectConfigFilePath
+//Override defaults at user global level
+if (file(userGlobalConfigFilePath).exists()) apply from: userGlobalConfigFilePath
+//Override defaults at user local level
+if (file(userConfigFileName).exists()) apply from: userConfigFileName
+
+/**
+ * Executes ATG startSQLRepository
+ */
+task startSQLRepository(type: Exec) {
+  description 'Instantiates a repository, parses and combines XML, import and export repository data.'
+  group 'ATG'
+  List<String> arguments = new ArrayList()
+  if (SystemUtils.IS_OS_WINDOWS) {
+    arguments.add('cmd')
+    arguments.add('/c')
+    arguments.add("${startSQLRepositoryScriptName}.bat")
+  }
+  else {
+    arguments.add("./$startSQLRepositoryScriptName")
+  }
+
+  workingDir atgBinDir
+  
+  arguments.add('-s')
+  arguments.add(server)
+  modules.each { module ->
+    arguments.add('-m')
+    arguments.add(module)
+  }
+  arguments.add('-repository')
+  arguments.add(repository)
+  options.each { option ->
+    arguments.add("-${option}")
+  }
+  
+  logger.quiet "$startSQLRepositoryScriptName args=$arguments"
+  commandLine arguments
+}
+
+/**
+ * Executes ATG runAssembler
+ */
+task runAssembler(type: Exec) {
+  description 'Assembles ATG Modules into a single ear file'
+  group 'ATG'
+  List<String> arguments = new ArrayList()
+  workingDir atgBinDir
+  
+  if (SystemUtils.IS_OS_WINDOWS) {
+    arguments.add('cmd')
+    arguments.add('/c')
+    arguments.add("${runAssemblerScriptName}.bat")
+  }
+  else {
+    arguments.add("./$runAssemblerScriptName")
+  }
+  
+  // Add non-parameterised options (Extend DSL for parameterised later)
+  runAssemblerOptions.each { option ->
+    arguments.add("-${option}")
+  }
+  // Add target ear file
+  arguments.add(runAssemblerOutputFilePath)
+  // Add assembly modules
+  arguments.add('-m')
+  runAssemblerModules.each { module ->
+    arguments.add(module)
+  } 
+  
+  logger.quiet "$runAssemblerScriptName args=$arguments"
+  commandLine arguments
+}

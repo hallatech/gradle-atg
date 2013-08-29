@@ -1,0 +1,11 @@
+buildscript {
+  dependencies {
+    classpath fileTree(dir: "${buildDir}/libs", include: '*.jar')
+  }
+}
+
+import com.spindrift.gradle.atg.RunAssembler
+
+task runAssembler(type: RunAssembler) {
+  modules 'DAS','DPS'
+}

@@ -1,0 +1,28 @@
+ext {
+  // build configuration
+  buildtoolsPath='buildtools/gradle'
+  projectConfigFileName='project-config.gradle'
+  projectConfigFilePath="$buildtoolsPath/$projectConfigFileName"
+  userConfigFileName='user-config.gradle'
+  userGlobalConfigFilePath="${System.env['HOME']}/.gradle/${userConfigFileName}"
+  atgBuildDir="$buildDir/atg"
+  
+  // env vars
+  atgHome=System.env['ATG_HOME']
+  atgBinDir="${atgHome}/home/bin"
+  
+  // startSQLRepository task configuration
+  startSQLRepositoryScriptName='startSQLRepository'
+  modules=['DCS','JDBCDriver']
+  server='gradleExport'
+  repository='/atg/userprofiling/ProfileAdapterRepository'
+  options=['outputSQL']
+  
+  // runAssembler task configuration
+  runAssemblerScriptName='runAssembler'
+  runAssemblerModules=['DafEar.Admin','DPS','DSS','DCS.PublishingAgent']
+  runAssemblerLayers=[]
+  runAssemblerOutputFileName='ATGProduction.ear'
+  runAssemblerOutputFilePath="$atgBuildDir/$runAssemblerOutputFileName"
+  runAssemblerOptions=['liveconfig']
+}

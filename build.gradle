@@ -1,0 +1,19 @@
+project.version='0.1-SNAPSHOT'
+project.group='com.spindrift.gradle.atg'
+
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+
+repositories {
+  mavenCentral()
+}
+dependencies {
+  compile gradleApi()
+  compile 'org.apache.commons:commons-lang3:3.1'
+}
+
+targetCompatibility = "1.6"
+sourceCompatibility = "1.6"
+
+defaultTasks 'build'
+
