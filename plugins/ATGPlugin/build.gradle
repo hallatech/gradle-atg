@@ -1,8 +1,10 @@
-project.version='0.1-SNAPSHOT'
-project.group='com.spindrift.gradle.atg'
-
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
+
+archivesBaseName='atg-plugin'
+group='com.spindrift.gradle'
+version='0.1'
 
 repositories {
   mavenCentral()
@@ -17,3 +19,11 @@ targetCompatibility = "1.6"
 sourceCompatibility = "1.6"
 
 defaultTasks 'build'
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      repository(url: "file://$projectDir/../../pluginRepo")
+    }
+  }
+}

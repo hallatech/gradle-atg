@@ -1,0 +1,38 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    maven { url "file://$projectDir/pluginRepo" }
+  }
+  dependencies {
+    classpath 'com.spindrift.gradle:atg-plugin:0.1'
+    classpath 'org.apache.commons:commons-lang3:3.1'
+  }
+}
+
+apply plugin: 'atg'
+
+import com.spindrift.gradle.atg.tasks.RunAssembler
+
+//Get default configuration
+apply from: 'buildtools/gradle/task-config.gradle'
+//Override defaults at project level
+apply from: projectConfigFilePath
+//Override defaults at user global level
+if (file(userGlobalConfigFilePath).exists()) apply from: userGlobalConfigFilePath
+//Override defaults at user local level
+if (file(userConfigFileName).exists()) apply from: userConfigFileName
+
+/**
+ * Executes ATG runAssembler
+ */
+task runAssembler(type: RunAssembler) {
+  workingDir atgBinDir
+//  outputFilePath runAssemblerOutputFilePath
+//  options runAssemblerOptions
+//  modules runAssemblerModules
+  generateArguments()
+  commandLine arguments
+}
+
+
+println "atg=${atg.runAssembler}"

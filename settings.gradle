@@ -1,0 +1,3 @@
+//rootProject.name='gradle-atg'
+
+include 'plugins/ATGPlugin'
